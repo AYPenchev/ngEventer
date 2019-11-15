@@ -15,4 +15,12 @@ export class NavBarComponent {
     constructor(private auth:AuthService) {
 
     }
+
+    get isAuthenticated(): boolean {
+        return this.auth.isAuthenticated();
+    }
+
+    get firstName(): string {
+        return this.auth.currentUser.firstName;
+    }
 }
