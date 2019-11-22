@@ -3,10 +3,14 @@ import { IUser } from './user.modul';
 
 @Injectable()
 export class AuthService {
-    currentUser:IUser;
+    _currentUser:IUser;
+
+    get currentUser(): IUser {
+        return this._currentUser;
+    }
 
     loginUser(userName: string, password: string) {
-        this.currentUser = {
+        this._currentUser = {
             id: 1,
             userName: userName,
             firstName: 'John',
@@ -15,11 +19,11 @@ export class AuthService {
     }
 
     isAuthenticated() {
-        return !!this.currentUser;
+        return !!this._currentUser;
     }
 
     updateCurrentUser(firstName:string, lastName:string) {
-        this.currentUser.firstName = firstName;
-        this.currentUser.lastName = lastName;
+        this._currentUser.firstName = firstName;
+        this._currentUser.lastName = lastName;
     }
 }

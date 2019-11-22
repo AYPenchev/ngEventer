@@ -16,8 +16,8 @@ import { Router } from '@angular/router';
  })
  export class ProfileComponent implements OnInit {
     profileForm:FormGroup;
-    private firstName:FormControl;
-    private lastName:FormControl;
+    private _firstName:FormControl;
+    private _lastName:FormControl;
 
     constructor(private authService:AuthService,
                 private router:Router) {
@@ -25,17 +25,25 @@ import { Router } from '@angular/router';
     }
 
     ngOnInit() {
-        this.firstName = new FormControl(this.authService.currentUser.firstName, Validators.required);
-        this.lastName = new FormControl(this.authService.currentUser.lastName, Validators.required);
+        this._firstName = new FormControl(this.authService.currentUser.firstName, [Validators.required, Validators.pattern('[a-zA-Z].*')]);
+        this._lastName = new FormControl(this.authService.currentUser.lastName, [Validators.required, Validators.pattern('[a-zA-Z].*')]);
         this.profileForm = new FormGroup({
-            firstName: this.firstName,
-            lastName: this.lastName
+            firstName: this._firstName,
+            lastName: this._lastName
         })
+    }
+
+    get firstName(): FormControl {
+        return this._firstName;
+    }
+
+    get lastName(): FormControl {
+        return this._lastName;
     }
 
     saveProfile(formValues) {
         if(this.profileForm.valid) {
-            this.authService.updateCurrentUser(formValues.firstName, formValues.lastName);
+            this.authService.updateCurrentUser(formValues._firstName, formValues._lastName);
             this.router.navigate(['events']);
         }
     }
@@ -45,10 +53,10 @@ import { Router } from '@angular/router';
     }
 
     validateFirstName(): boolean {
-        return this.firstName.valid || this.firstName.untouched
+        return this._firstName.valid || this._firstName.untouched
     }
 
     validateLastName(): boolean {
-        return this.lastName.valid || this.lastName.untouched
+        return this._lastName.valid || this._lastName.untouched
     }
  }
