@@ -50,18 +50,18 @@ export class CreateSessionComponent implements OnInit {
         this._duration = new FormControl('', Validators.required);
         this._level = new FormControl('', Validators.required);
         this._abstract = new FormControl('', [Validators.required, Validators.maxLength(400), restrictedWords(['foo', 'bar'])]);
-        
+
         this.newSessionForm = new FormGroup({
             name: this._name,
             presenter: this._presenter,
             duration: this._duration,
             level: this._level,
             abstract: this._abstract
-        })
+        });
     }
 
     saveSession(formValues) {
-        let session:ISession = {
+        let session: ISession = {
             id: undefined,
             name: formValues.name,
             duration: +formValues.duration,
@@ -69,10 +69,10 @@ export class CreateSessionComponent implements OnInit {
             presenter: formValues.presenter,
             abstract: formValues.abstract,
             voters: []
-        }
-        this.saveNewSession.emit(session)
+        };
+        this.saveNewSession.emit(session);
     }
-    
+
     cancel() {
         this.cancelAddSession.emit();
     }

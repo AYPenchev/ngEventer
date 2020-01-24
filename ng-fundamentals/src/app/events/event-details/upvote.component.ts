@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
     selector: 'upvote',
     styleUrls: ['./upvote.component.css'],
-    template:`
+    template: `
         <div class="votingWitgetContainer pointable" (click)="onClick()">
             <div class="well votingWidget">
                 <div class="votingButton">
@@ -12,7 +12,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
                 </div>
                 <div class="badge badge-inverse votingCount">
                     <div>{{count}}</div>
-                </div>    
+                </div>
             </div>
         </div>
     `
